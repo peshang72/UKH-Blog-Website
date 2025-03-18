@@ -1,7 +1,8 @@
 import React from "react";
 import logo from "../assets/logo.png";
 import campusImg from "../../public/campusImg.png";
-import ButtonPrimary from "../components/Button";
+import ButtonPrimary from "../components/ButtonPrimary/";
+import ButtonSecondary from "../components/ButtonSecondary/";
 
 function Landing() {
   console.log(campusImg);
@@ -26,17 +27,11 @@ function Landing() {
           animi velit voluptatem
         </p>
 
-        <div className="flex justify-between">
-          <ButtonPrimary
-            bgColor="primary"
-            bgHover="primary-400"
-            textColor="white"
-          >
-            Browse Blogs
-          </ButtonPrimary>
-          <ButtonPrimary bgColor="white" bgHover="white" textColor="primary">
+        <div className="flex justify-between gap-5">
+          <ButtonPrimary>Browse Blogs</ButtonPrimary>
+          <ButtonSecondary bgColor="white" bgHover="white" textColor="primary">
             Create Posts
-          </ButtonPrimary>
+          </ButtonSecondary>
         </div>
       </div>
     </main>
