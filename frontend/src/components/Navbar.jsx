@@ -2,9 +2,11 @@ import React from "react";
 import logo from "../assets/logo-horizontal.png";
 import Search from "./Search";
 
-function Navbar() {
+function Navbar({ className }) {
   return (
-    <header className="bg-primary px-6 h-16 flex items-center justify-between shadow-xl">
+    <header
+      className={`bg-primary px-6 h-16 flex items-center justify-between shadow-xl ${className}`}
+    >
       <img
         src={logo}
         alt="Logo of University of Kurdistan Hewler"
