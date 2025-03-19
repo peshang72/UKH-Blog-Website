@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Landing from "./pages/Landing";
+import BrowseBlogs from "./pages/BrowseBlogs";
 import "./index.css";
 
 function App() {
@@ -7,7 +8,9 @@ function App() {
 
   return (
     <div>
-      <Landing />
+      {/* <Landing /> */}
+      
+      <BrowseBlogs />
     </div>
   );
 }
