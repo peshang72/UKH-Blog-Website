@@ -9,7 +9,6 @@ function App() {
   return (
     <div>
       {/* <Landing /> */}
-      
       <BrowseBlogs />
     </div>
   );

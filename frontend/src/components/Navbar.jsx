@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo-horizontal.png";
 import Search from "./Search";
 
 function Navbar() {
@@ -8,12 +8,12 @@ function Navbar() {
       <img
         src={logo}
         alt="Logo of University of Kurdistan Hewler"
-        className="py-1 w-1/24"
+        className="py-4 w-1/9"
       />
       <Search />
       <a
         href="#"
-        className="text-white font-semibold my-auto hover:text-gray-300"
+        className="text-white font-semibold my-auto hover:text-gray-300 text-lg"
       >
         Create Posts
       </a>
