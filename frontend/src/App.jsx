@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Landing from "./pages/Landing";
 import BrowseBlogs from "./pages/BrowseBlogs";
+import PostBlog from "./pages/PostBlog";
+import BlogPost from "./pages/BlogPost";
 import "./index.css";
 
 function App() {
@@ -9,7 +11,9 @@ function App() {
   return (
     <div>
       {/* <Landing /> */}
-      <BrowseBlogs />
+      {/* <BrowseBlogs /> */}
+      {/* <PostBlog /> */}
+      <BlogPost />
     </div>
   );
 }
