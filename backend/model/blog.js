@@ -2,11 +2,12 @@ import mongoose from "mongoose";
 
 const blogSchema = new mongoose.Schema({
   title: String,
-  content: String,
+  blogDescription: String,
   author: String,
+  authorDescription: String,
   category: String,
-  tags: [String],
-  image: {
+  imgCaption: String,
+  coverImage: {
     data: Buffer,
     contentType: String,
   },
