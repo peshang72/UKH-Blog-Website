@@ -2,6 +2,7 @@ import React from "react";
 import programmingImg from "../assets/programming-img.jpg";
 import avatar from "../assets/avatar.jpg";
 
+// FIX LATER DON'T USE DEFAULT VALUES
 function BlogCard({
   dividerDown = true,
   postTitle = "Programming is Hard But Designing is Harder",
