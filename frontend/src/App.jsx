@@ -12,8 +12,8 @@ function App() {
     <div>
       {/* <Landing /> */}
       {/* <BrowseBlogs /> */}
-      {/* <PostBlog /> */}
-      <BlogPost />
+      <PostBlog />
+      {/* <BlogPost /> */}
     </div>
   );
 }
