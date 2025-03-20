@@ -2,8 +2,12 @@ import React from "react";
 import programmingImg from "../assets/programming-img.jpg";
 import avatar from "../assets/avatar.jpg";
 
-function BlogCard({ dividerDown = true, post }) {
-  console.log(post);
+function BlogCard({
+  dividerDown = true,
+  postTitle = "Programming is Hard But Designing is Harder",
+  postDescription = "This blog describes that designing is much harder than programming as it needs much thought and inspiration so through continuous studying",
+}) {
+  // console.log(post);
 
   return (
     <div className="mr-10 ">
@@ -18,9 +22,9 @@ function BlogCard({ dividerDown = true, post }) {
           {/* HEADER AND DESCRIPTION */}
           <div className="flex flex-col gap-4">
             <h1 className="text-2xl font-semibold text-gray-800 tracking-tight">
-              {post.title}
+              {postTitle}
             </h1>
-            <p className="text-gray-500 leading-[1.6]">{post.body}</p>
+            <p className="text-gray-500 leading-[1.6]">{postDescription}</p>
           </div>
 
           {/* AUTHOR AND DATE */}

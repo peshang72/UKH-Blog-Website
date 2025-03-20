@@ -11,7 +11,7 @@ function Posts({ posts, loading }) {
       {posts.map((post) => (
         // Use parentheses () instead of curly braces {} for implicit return
         <div>
-          <BlogCard post={post} />
+          <BlogCard postTitle={post.title} postBody={post.description} />
         </div>
       ))}
     </div>
