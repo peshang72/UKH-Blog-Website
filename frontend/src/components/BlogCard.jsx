@@ -1,6 +1,8 @@
 import React from "react";
 import programmingImg from "../assets/programming-img.jpg";
 import avatar from "../assets/avatar.jpg";
+import { Link } from "react-router-dom";
+
 
 // FIX LATER DON'T USE DEFAULT VALUES
 function BlogCard({
@@ -12,7 +14,11 @@ function BlogCard({
 
   return (
     <div className="mr-10 ">
-      <a className="grid grid-cols-[300px_1fr] gap-5 cursor-pointer ">
+      {/* FIX (TO) LATER */}
+      <Link
+        className="grid grid-cols-[300px_1fr] gap-5 cursor-pointer "
+        to="/blog-post"
+      >
         {/* Image */}
         <img
           src={programmingImg}
@@ -45,7 +51,7 @@ function BlogCard({
             <p className="text-gray-500">FEB 25, 2025</p>
           </div>
         </div>
-      </a>
+      </Link>
       {dividerDown ? (
         <hr className="text-gray-200 mx-5 rounded-2xl my-10" />
       ) : null}

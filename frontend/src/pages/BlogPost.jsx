@@ -10,7 +10,7 @@ function BlogPost() {
     <div className="">
       <Navbar />
       <main className="mt-7 ml-10">
-        <BackButton />
+        <BackButton route="/browse-blogs" />
         <div className="flex flex-col items-center">
           <div className="w-1/2">
             <h1 className="text-4xl font-semibold tracking-tight mb-3">

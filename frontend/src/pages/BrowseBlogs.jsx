@@ -51,7 +51,7 @@ function BrowseBlogs() {
       <Navbar className="col-span-full" />
       <Sidebar />
       <div className="mt-7 ml-10">
-        <BackButton className="mb-10" />
+        <BackButton className="mb-10" route="/" />
         <Posts posts={currentPosts} loading={loading} />
         <Pagination
           postsPerPage={postsPerPage}

@@ -7,7 +7,7 @@ function PostBlog() {
     <div>
       <Navbar />
 
-      <BackButton className="mb-5 mt-7 ml-10" />
+      <BackButton className="mb-5 mt-7 ml-10" route="/" />
       <div className="flex flex-col justify-center items-center p-5 bg-gray-100">
         <h1 className="text-2xl font-semibold tracking-tight mb-8 text-gray-800 ">
           Create a Blog Post

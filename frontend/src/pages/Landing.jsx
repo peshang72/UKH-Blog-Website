@@ -32,10 +32,8 @@ function Landing() {
         </p>
 
         <div className="flex justify-between gap-5">
-          <ButtonPrimary>Browse Blogs</ButtonPrimary>
-          <ButtonSecondary bgColor="white" bgHover="white" textColor="primary">
-            Create Posts
-          </ButtonSecondary>
+          <ButtonPrimary route="/browse-blogs">Browse Blogs</ButtonPrimary>
+          <ButtonSecondary route="/post-blog">Create Posts</ButtonSecondary>
         </div>
       </div>
     </main>
