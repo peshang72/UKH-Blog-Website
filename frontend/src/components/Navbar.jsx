@@ -1,8 +1,9 @@
 import React from "react";
 import logo from "../assets/logo-horizontal.png";
 import Search from "./Search";
+import { Link } from "react-router-dom";
 
-function Navbar({ className }) {
+function Navbar({ className, route }) {
   return (
     <header
       className={`bg-primary px-6 h-16 flex items-center justify-between shadow-xl ${className}`}
@@ -13,12 +14,12 @@ function Navbar({ className }) {
         className="py-4 w-1/9"
       />
       <Search />
-      <a
-        href="#"
+      <Link
+        to={route}
         className="text-white font-semibold my-auto hover:text-gray-300 text-lg"
       >
-        Create Posts
-      </a>
+        Create Post
+      </Link>
     </header>
   );
 }

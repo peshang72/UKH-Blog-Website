@@ -3,6 +3,8 @@ import Landing from "./pages/Landing";
 import BrowseBlogs from "./pages/BrowseBlogs";
 import PostBlog from "./pages/PostBlog";
 import BlogPost from "./pages/BlogPost";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import "./index.css";
 import { Route, Routes } from "react-router-dom";
 
@@ -14,6 +16,8 @@ function App() {
         <Route path="/browse-blogs" element={<BrowseBlogs />} />
         <Route path="/blog-post" element={<BlogPost />} />
         <Route path="/post-blog" element={<PostBlog />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );

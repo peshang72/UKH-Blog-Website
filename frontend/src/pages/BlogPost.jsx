@@ -8,7 +8,7 @@ import BlogCard from "../components/BlogCard";
 function BlogPost() {
   return (
     <div className="">
-      <Navbar />
+      <Navbar route={"/"} />
       <main className="mt-7 ml-10">
         <BackButton route="/browse-blogs" />
         <div className="flex flex-col items-center">
