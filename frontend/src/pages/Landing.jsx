@@ -1,8 +1,8 @@
 import React from "react";
 import logo from "../assets/logo.png";
 import campusImg from "../../public/campusImg.png";
-import ButtonPrimary from "../components/ButtonPrimary/";
-import ButtonSecondary from "../components/ButtonSecondary/";
+import ButtonPrimary from "../components/ButtonPrimary";
+import ButtonSecondary from "../components/ButtonSecondary";
 import Search from "../components/Search";
 
 function Landing() {
