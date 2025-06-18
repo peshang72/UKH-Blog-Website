@@ -5,7 +5,7 @@ import cors from "cors";
 import homeRoute from "./routes/homeRoute.js";
 import userRoute from "./routes/userRoute.js";
 
-dotenv.config();
+dotenv.config({ path: "../.env" });
 
 const app = express();
 
