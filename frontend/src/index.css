@@ -14,3 +14,96 @@ body {
   --color-primary-400: #1c74c1;
   --color-primary-300: #3584c8;
 }
+
+/* Custom styles for Quill editor content */
+.ql-editor {
+  font-family: var(--font-custom);
+  line-height: 1.6;
+  color: #374151;
+}
+
+.ql-editor h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1.5rem 0 1rem 0;
+  color: #1f2937;
+}
+
+.ql-editor h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.75rem 0;
+  color: #1f2937;
+}
+
+.ql-editor h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem 0;
+  color: #1f2937;
+}
+
+.ql-editor p {
+  margin: 0.75rem 0;
+  font-size: 1.1rem;
+}
+
+.ql-editor ul,
+.ql-editor ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.ql-editor li {
+  margin: 0.5rem 0;
+}
+
+.ql-editor blockquote {
+  border-left: 4px solid var(--color-primary);
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  background-color: #f9fafb;
+  padding: 1rem;
+}
+
+.ql-editor pre {
+  background-color: #1f2937;
+  color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.ql-editor a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.ql-editor a:hover {
+  color: var(--color-primary-400);
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Fix for duplicate Quill toolbars */
+.quill-editor-container .ql-toolbar:nth-child(n + 2) {
+  display: none !important;
+}
+
+/* Ensure only the first toolbar is visible and functional */
+.quill-editor-container > .ql-toolbar ~ .ql-toolbar {
+  display: none !important;
+}
+
+/* Hide any duplicate containers that might appear */
+.quill-editor-container > .ql-container ~ .ql-container {
+  display: none !important;
+}

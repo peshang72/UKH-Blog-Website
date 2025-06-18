@@ -11,7 +11,7 @@ export const postBlog = [
       const {
         title,
         "blog-description": blogDescription,
-        "author-description": authorDescription,
+        content,
         "img-caption": imgCaption,
         category,
       } = req.body;
@@ -26,8 +26,8 @@ export const postBlog = [
       const newBlog = new Blog({
         title,
         blogDescription,
+        content,
         author: req.user._id, // Use authenticated user's ID
-        authorDescription,
         category,
         imgCaption,
         coverImage,
@@ -50,7 +50,7 @@ export const postBlog = [
 export const getAllBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find()
-      .populate("author", "username email")
+      .populate("author", "firstName lastName username email")
       .sort({ createdAt: -1 });
     res.json(blogs);
   } catch (error) {
@@ -66,7 +66,7 @@ export const getBlogById = async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id).populate(
       "author",
-      "username email"
+      "firstName lastName username email"
     );
 
     if (!blog) {
@@ -101,7 +101,7 @@ export const updateBlog = async (req, res) => {
 
     const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-    }).populate("author", "username email");
+    }).populate("author", "firstName lastName username email");
 
     res.json({
       message: "Blog updated successfully",

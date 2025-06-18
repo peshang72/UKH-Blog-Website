@@ -11,7 +11,7 @@ const generateToken = (userId) => {
 // Register new user
 export const registerUser = async (req, res) => {
   try {
-    const { username, email, password, role } = req.body;
+    const { firstName, lastName, username, email, password, role } = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({
@@ -26,6 +26,8 @@ export const registerUser = async (req, res) => {
 
     // Create new user
     const user = new User({
+      firstName,
+      lastName,
       username,
       email,
       password,
@@ -42,6 +44,9 @@ export const registerUser = async (req, res) => {
       token,
       user: {
         id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        fullName: user.fullName,
         username: user.username,
         email: user.email,
         role: user.role,
@@ -80,6 +85,9 @@ export const loginUser = async (req, res) => {
       token,
       user: {
         id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        fullName: user.fullName,
         username: user.username,
         email: user.email,
         role: user.role,

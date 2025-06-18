@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios"; // Import Axios
 import logo from "../assets/logo.png";
 import ButtonPrimary from "../components/ButtonPrimary";
@@ -10,6 +10,7 @@ function Login() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,8 +36,9 @@ function Login() {
       // 2. Store user data (optional)
       localStorage.setItem("userData", JSON.stringify(response.data.user));
 
-      // 3. Redirect to home page
-      navigate("/");
+      // 3. Redirect to the page user was trying to access, or home page
+      const from = location.state?.from?.pathname || "/";
+      navigate(from, { replace: true });
     } catch (err) {
       // Handle different error types
       if (err.response) {

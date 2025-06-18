@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import BackButton from "../components/BackButton";
@@ -7,31 +8,26 @@ import Pagination from "../components/Pagination";
 
 function BrowseBlogs() {
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true); // Start with true since we load immediately
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10); // Made constant since we're not changing it
-  // const [error, setError] = useState(null); // Added error state
+  const [postsPerPage] = useState(1);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(
-          "https://jsonplaceholder.typicode.com/posts"
-        );
+        // API endpoint for our backend
+        const API_URL = "http://localhost:3000/api/blogs";
 
-        // Handle HTTP errors (fetch doesn't throw on 4xx/5xx responses)
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        const response = await axios.get(API_URL);
 
-        const data = await response.json();
-        setPosts(data);
-        // setError(null); // Clear any previous errors
+        setPosts(response.data);
+        setError(null);
       } catch (err) {
         setError(err.message);
         console.error("Fetch error:", err);
       } finally {
-        setLoading(false); // Runs regardless of success/failure
+        setLoading(false);
       }
     };
 
@@ -52,11 +48,17 @@ function BrowseBlogs() {
       <Sidebar />
       <div className="mt-7 ml-10">
         <BackButton className="mb-10" route="/" />
+        {error && (
+          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
+            Error loading blogs: {error}
+          </div>
+        )}
         <Posts posts={currentPosts} loading={loading} />
         <Pagination
           postsPerPage={postsPerPage}
           totalPosts={posts.length}
           paginate={paginate}
+          currentPage={currentPage}
         />
       </div>
     </div>

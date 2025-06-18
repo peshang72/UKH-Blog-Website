@@ -10,12 +10,15 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  content: {
+    type: String,
+    required: true,
+  },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
-  authorDescription: String,
   category: {
     type: String,
     required: true,

@@ -3,15 +3,26 @@ import BlogCard from "./BlogCard";
 
 function Posts({ posts, loading }) {
   if (loading) {
-    return <h1>Loading...</h1>;
+    return (
+      <div className="flex justify-center items-center py-20">
+        <div className="text-2xl text-gray-600">Loading blogs...</div>
+      </div>
+    );
+  }
+
+  if (!posts || posts.length === 0) {
+    return (
+      <div className="flex justify-center items-center py-20">
+        <div className="text-2xl text-gray-600">No blogs found.</div>
+      </div>
+    );
   }
 
   return (
     <div>
-      {posts.map((post) => (
-        // Use parentheses () instead of curly braces {} for implicit return
-        <div>
-          <BlogCard postTitle={post.title} postBody={post.description} />
+      {posts.map((blog, index) => (
+        <div key={blog._id || index}>
+          <BlogCard blog={blog} dividerDown={index < posts.length - 1} />
         </div>
       ))}
     </div>
