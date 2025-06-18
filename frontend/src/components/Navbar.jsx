@@ -27,6 +27,12 @@ function Navbar({ className }) {
       <Search />
       <div className="flex items-center gap-4">
         <Link
+          to="/my-blogs"
+          className="text-white font-semibold my-auto hover:text-gray-300 text-lg"
+        >
+          My Blogs
+        </Link>
+        <Link
           to="/post-blog"
           className="text-white font-semibold my-auto hover:text-gray-300 text-lg"
         >

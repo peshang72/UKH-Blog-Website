@@ -28,6 +28,21 @@ const blogSchema = new mongoose.Schema({
     data: Buffer,
     contentType: String,
   },
+  status: {
+    type: String,
+    enum: ["pending", "approved", "rejected"],
+    default: "pending",
+  },
+  reviewedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  reviewedAt: {
+    type: Date,
+  },
+  rejectionReason: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

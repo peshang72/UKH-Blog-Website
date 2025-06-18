@@ -84,8 +84,11 @@ function BlogPost() {
     );
   }
 
-  // Use default image for now
-  const coverImageSrc = programmingImg;
+  // Use cover image if available, otherwise use default
+  const coverImageSrc =
+    blog.coverImage && blog.coverImage.data
+      ? `data:${blog.coverImage.contentType};base64,${blog.coverImage.data}`
+      : programmingImg;
 
   const authorName =
     blog.author?.fullName ||

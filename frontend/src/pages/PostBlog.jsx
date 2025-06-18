@@ -152,7 +152,9 @@ function PostBlog() {
         },
       });
 
-      setSuccess("Blog post created successfully!");
+      setSuccess(
+        "Blog post submitted successfully! Your blog is now pending admin approval and will be published once reviewed."
+      );
       console.log("Blog created:", response.data);
 
       // Reset form

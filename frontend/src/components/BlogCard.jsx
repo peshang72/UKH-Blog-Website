@@ -46,9 +46,11 @@ function BlogCard({
         .toUpperCase()
     : "FEB 25, 2025";
 
-  // For now, let's use the default image and we'll handle cover images later
-  // The backend buffer data needs special handling that we'll implement separately
-  const coverImageSrc = programmingImg;
+  // Use cover image if available, otherwise use default
+  const coverImageSrc =
+    blog?.coverImage && blog.coverImage.data
+      ? `data:${blog.coverImage.contentType};base64,${blog.coverImage.data}`
+      : programmingImg;
 
   return (
     <div className="mr-10">

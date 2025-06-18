@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios from "axios"; // Import Axios
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import logo from "../assets/logo.png";
 import ButtonPrimary from "../components/ButtonPrimary";
 
-function Login() {
+function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,37 +17,32 @@ function Login() {
     setError("");
 
     try {
-      // API endpoint - replace with your actual backend URL
       const API_URL = "http://localhost:3000/api/auth/login";
 
-      // Send POST request using Axios
       const response = await axios.post(API_URL, {
         email,
         password,
       });
 
-      // Handle successful login
-      console.log("Login successful:", response.data);
+      // Check if user is admin
+      if (response.data.user.role !== "admin") {
+        setError("Access denied. Admin privileges required.");
+        setIsLoading(false);
+        return;
+      }
 
-      // 1. Store authentication token (JWT)
+      // Store authentication token and user data
       localStorage.setItem("authToken", response.data.token);
-
-      // 2. Store user data (optional)
       localStorage.setItem("userData", JSON.stringify(response.data.user));
 
-      // 3. Redirect to the page user was trying to access, or home page
-      const from = location.state?.from?.pathname || "/";
-      navigate(from, { replace: true });
+      // Redirect to admin dashboard
+      navigate("/admin/dashboard");
     } catch (err) {
-      // Handle different error types
       if (err.response) {
-        // Server responded with error status (4xx, 5xx)
         setError(err.response.data.message || "Invalid credentials");
       } else if (err.request) {
-        // Request was made but no response received
         setError("Network error. Please try again.");
       } else {
-        // Other errors
         setError("An unexpected error occurred");
       }
     } finally {
@@ -57,15 +51,17 @@ function Login() {
   };
 
   return (
-    <main className="bg-[url('../../public/campusImg.png')] bg-cover min-h-screen flex flex-col items-center justify-center p-4">
+    <main className="bg-gradient-to-br from-blue-900 to-indigo-900 min-h-screen flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-xl p-8 shadow-2xl">
         <div className="flex flex-col items-center mb-8">
-          <img src={logo} alt="College Logo" className="w-24 mb-6 " />
+          <img src={logo} alt="College Logo" className="w-24 mb-6" />
           <h1 className="text-3xl font-bold text-center text-gray-900">
-            Welcome Back to <span className="text-primary">My College</span>{" "}
-            Voice
+            Admin Portal
           </h1>
-          <p className="text-gray-600 mt-2">Sign in to continue your journey</p>
+          <p className="text-gray-600 mt-2">
+            Sign in to manage{" "}
+            <span className="text-primary font-semibold">My College Voice</span>
+          </p>
         </div>
 
         {error && (
@@ -80,7 +76,7 @@ function Login() {
               htmlFor="email"
               className="block text-sm font-medium mb-2 text-gray-700"
             >
-              College Email
+              Admin Email
             </label>
             <input
               type="email"
@@ -88,9 +84,7 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full p-3 rounded-lg bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900"
-              placeholder="student@ukh.edu.krd"
-              pattern=".*@ukh\.edu\.krd$"
-              title="Email must end with @ukh.edu.krd"
+              placeholder="admin@ukh.edu.krd"
               required
             />
           </div>
@@ -111,25 +105,6 @@ function Login() {
               placeholder="••••••••"
               required
             />
-          </div>
-
-          <div className="flex justify-between items-center">
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="remember"
-                className="w-4 h-4 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary"
-              />
-              <label htmlFor="remember" className="ml-2 text-sm text-gray-700">
-                Remember me
-              </label>
-            </div>
-            <Link
-              to="/forgot-password"
-              className="text-sm text-primary hover:underline font-medium"
-            >
-              Forgot Password?
-            </Link>
           </div>
 
           <ButtonPrimary
@@ -162,28 +137,19 @@ function Login() {
                 Authenticating...
               </>
             ) : (
-              "Sign In"
+              "Sign In as Admin"
             )}
           </ButtonPrimary>
         </form>
 
         <div className="mt-6 text-center pt-4 border-t border-gray-200">
           <p className="text-gray-600">
-            New to our community?{" "}
+            Not an admin?{" "}
             <Link
-              to="/register"
+              to="/login"
               className="text-primary font-medium hover:underline"
             >
-              Create an account
-            </Link>
-          </p>
-          <p className="text-gray-600 mt-2">
-            Are you an admin?{" "}
-            <Link
-              to="/admin/login"
-              className="text-blue-600 font-medium hover:underline"
-            >
-              Admin Login
+              Student Login
             </Link>
           </p>
         </div>
@@ -192,4 +158,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default AdminLogin;
