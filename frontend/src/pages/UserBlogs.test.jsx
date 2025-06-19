@@ -1,5 +1,4 @@
-// UserBlogs.test.jsx
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import UserBlogs from "./UserBlogs";
 import axios from "axios";
 import { MemoryRouter } from "react-router-dom";
@@ -45,15 +44,20 @@ describe("UserBlogs Component", () => {
       expect(screen.getByText("My Blog Posts")).toBeInTheDocument();
     });
 
-    // Verify stats using text patterns
-    const totalPostsText = await screen.findByText(/Total Posts\s*2/);
-    expect(totalPostsText).toBeInTheDocument();
+    // Get all stat boxes
+    const statBoxes = await screen.findAllByRole("heading", {
+      name: /(Total Posts|Published|Pending)/,
+    });
 
-    const publishedText = await screen.findByText(/Published\s*1/);
-    expect(publishedText).toBeInTheDocument();
+    // Verify stats by checking each box individually
+    const totalPostsBox = statBoxes[0].closest("div");
+    expect(within(totalPostsBox).getByText("2")).toBeInTheDocument();
 
-    const pendingText = await screen.findByText(/Pending\s*1/);
-    expect(pendingText).toBeInTheDocument();
+    const publishedBox = statBoxes[1].closest("div");
+    expect(within(publishedBox).getByText("1")).toBeInTheDocument();
+
+    const pendingBox = statBoxes[2].closest("div");
+    expect(within(pendingBox).getByText("1")).toBeInTheDocument();
 
     // Verify blog list
     expect(await screen.findByText("My Blog 1")).toBeInTheDocument();

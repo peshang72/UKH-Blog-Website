@@ -1,9 +1,43 @@
-// Navbar.test.jsx
 import { render, screen, fireEvent } from "@testing-library/react";
 import Navbar from "./Navbar";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useNavigate } from "react-router-dom";
+
+// Mock localStorage
+const localStorageMock = (function () {
+  let store = {};
+  return {
+    getItem: vi.fn((key) => store[key]),
+    setItem: vi.fn((key, value) => {
+      store[key] = value;
+    }),
+    removeItem: vi.fn((key) => {
+      delete store[key];
+    }),
+    clear: vi.fn(() => {
+      store = {};
+    }),
+  };
+})();
+
+Object.defineProperty(window, "localStorage", {
+  value: localStorageMock,
+});
+
+// Mock useNavigate while preserving other exports
+vi.mock("react-router-dom", async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    useNavigate: vi.fn(),
+  };
+});
 
 describe("Navbar Component", () => {
+  beforeEach(() => {
+    window.localStorage.clear();
+    vi.clearAllMocks();
+  });
+
   it("renders navigation links", () => {
     render(
       <BrowserRouter>
@@ -19,11 +53,15 @@ describe("Navbar Component", () => {
   });
 
   it("has logout functionality", () => {
-    const navigate = vi.fn();
-    vi.mock("react-router-dom", async () => ({
-      ...(await vi.importActual("react-router-dom")),
-      useNavigate: () => navigate,
-    }));
+    // Create a mock navigate function
+    const mockNavigate = vi.fn();
+
+    // Override useNavigate mock for this test
+    vi.mocked(useNavigate).mockImplementation(() => mockNavigate);
+
+    // Set auth data
+    window.localStorage.setItem("authToken", "test-token");
+    window.localStorage.setItem("userData", "{}");
 
     render(
       <BrowserRouter>
@@ -32,8 +70,8 @@ describe("Navbar Component", () => {
     );
 
     fireEvent.click(screen.getByText("Logout"));
-    expect(localStorage.removeItem).toHaveBeenCalledWith("authToken");
-    expect(localStorage.removeItem).toHaveBeenCalledWith("userData");
-    expect(navigate).toHaveBeenCalledWith("/login", { replace: true });
+    expect(localStorageMock.removeItem).toHaveBeenCalledWith("authToken");
+    expect(localStorageMock.removeItem).toHaveBeenCalledWith("userData");
+    expect(mockNavigate).toHaveBeenCalledWith("/login", { replace: true });
   });
 });

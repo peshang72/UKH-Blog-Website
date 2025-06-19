@@ -83,9 +83,12 @@ describe("Pagination Component", () => {
       />
     );
 
-    expect(screen.getByText("...")).toBeInTheDocument();
+    const ellipses = screen.getAllByText("...");
+    expect(ellipses.length).toBe(2); // Updated: expect 2 ellipses
+
     expect(screen.getByText("9")).toBeInTheDocument();
     expect(screen.getByText("10")).toBeInTheDocument();
     expect(screen.getByText("11")).toBeInTheDocument();
+    expect(screen.getByText("20")).toBeInTheDocument();
   });
 });

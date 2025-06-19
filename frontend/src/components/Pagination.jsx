@@ -71,6 +71,7 @@ function Pagination({ postsPerPage, totalPosts, paginate, currentPage }) {
   return (
     <nav className="flex justify-center items-center mt-10 my-16 gap-6">
       <button
+        aria-label="Previous page"
         onClick={handlePrevious}
         disabled={currentPage === 1}
         className={`flex justify-center items-center size-10 rounded-full transition-colors ${
@@ -97,6 +98,7 @@ function Pagination({ postsPerPage, totalPosts, paginate, currentPage }) {
                     ? "bg-primary text-white"
                     : "text-gray-800 hover:bg-gray-100"
                 }`}
+                aria-label={`Go to page ${number}`}
               >
                 {number}
               </button>
@@ -106,6 +108,7 @@ function Pagination({ postsPerPage, totalPosts, paginate, currentPage }) {
       </ul>
 
       <button
+        aria-label="Next page"
         onClick={handleNext}
         disabled={currentPage === totalPages}
         className={`flex justify-center items-center size-10 rounded-full transition-colors ${
