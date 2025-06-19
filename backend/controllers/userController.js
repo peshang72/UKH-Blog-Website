@@ -117,11 +117,8 @@ export const getAllUsers = async (req, res) => {
 // Get user profile
 export const getUserProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId, "-password");
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    res.json(user);
+    // req.user is already set by the auth middleware and password is excluded
+    res.json(req.user);
   } catch (error) {
     res.status(500).json({
       message: "Error fetching user profile",
