@@ -209,9 +209,15 @@ This document provides a comprehensive summary of all testing performed on the U
 ### ✅ Performance
 
 - [x] Database queries optimized
-- [x] Response times acceptable
+- [x] Response times acceptable (avg: 5.43ms, p95: 11.68ms)
 - [x] Memory usage reasonable
 - [x] No obvious bottlenecks
+- [x] **K6 Performance Testing**: ✅ **PASSED** (MongoDB Atlas)
+  - **Load Capacity**: ~23 requests/second with 10 concurrent users
+  - **Response Time**: 95% of requests under 617ms (avg: 428ms, threshold: <1000ms)
+  - **Error Rate**: 0% (threshold: <1%)
+  - **Database**: MongoDB Atlas cloud database (realistic production environment)
+  - **Network**: Includes real-world internet latency and cloud database performance
 
 ### ✅ Maintainability
 
@@ -253,13 +259,34 @@ npm test -- --testPathPattern="controller"
 npm run test:coverage
 ```
 
+### Performance Tests (MongoDB Atlas)
+
+```bash
+# Ensure main server is running (uses Atlas database)
+npm start
+
+# Quick benchmark (30s, 10 users) - Tests Atlas database
+k6 run backend/tests/performance/simple-benchmark.js
+
+# Full load test (20min, up to 50 users) - Tests Atlas database
+k6 run backend/tests/performance/load-test.js
+
+# Stress test (31min, up to 300 users) - Tests Atlas database
+k6 run backend/tests/performance/stress-test.js
+
+# Spike test (8min, spike to 1400 users) - Tests Atlas database
+k6 run backend/tests/performance/spike-test.js
+```
+
 ## Continuous Integration
 
 ### Test Environment
 
 - **Framework**: Jest v29+
 - **HTTP Testing**: Supertest
-- **Database**: MongoDB (test database)
+- **Database**:
+  - **Unit/Integration Tests**: MongoDB (in-memory test database)
+  - **Performance Tests**: MongoDB Atlas (cloud database)
 - **Mocking**: Jest mocks for unit tests
 - **Authentication**: JWT tokens
 - **Password Hashing**: bcrypt

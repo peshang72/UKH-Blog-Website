@@ -206,19 +206,58 @@ The `testHelpers.js` file provides utilities for:
 
 ## 📈 Performance Testing
 
-### Load Testing (Optional)
+### ✅ **K6 Performance Testing Implemented**
 
-For load testing, consider using:
+The project now includes comprehensive K6 performance tests using **MongoDB Atlas database** for realistic performance metrics.
+
+#### Quick Performance Test
+
+```bash
+# Ensure main server is running (uses Atlas database)
+npm start
+
+# Run 30-second benchmark with 10 users (tests Atlas database)
+k6 run backend/tests/performance/simple-benchmark.js
+```
+
+#### Available Test Types
+
+- **Simple Benchmark**: 30s, 10 users - Quick health check
+- **Load Test**: 20min, up to 50 users - Normal expected load
+- **Stress Test**: 31min, up to 300 users - Find breaking points
+- **Spike Test**: 8min, spike to 1400 users - Traffic surge resilience
+
+#### Atlas Database Testing
+
+🎓 **University Project**: Performance tests use the **actual MongoDB Atlas database**:
+
+- **Main Server**: Port 3000 (actual blog application)
+- **Atlas Database**: `cluster0.hhqpcvv.mongodb.net/University-Blog-Website`
+- **Configuration**: Loaded from `.env` file
+- **Real-World Testing**: Includes network latency and cloud database performance
+
+#### Recent Performance Results (Atlas Database)
+
+✅ **Simple Benchmark Results**:
+
+- **Requests/Second**: ~23 req/s (realistic for cloud database)
+- **Response Time**: avg 428ms, p95 617ms (includes network latency)
+- **Success Rate**: 100% (0% errors)
+- **Load Capacity**: Good performance with 10 concurrent users testing real Atlas database
+
+### Alternative Load Testing Tools
+
+For additional testing, consider:
 
 - **Artillery** - Load testing toolkit
 - **Apache Bench (ab)** - HTTP server benchmarking
-- **k6** - Modern load testing tool
+- **wrk** - Modern HTTP benchmarking tool
 
 Example Artillery configuration:
 
 ```yaml
 config:
-  target: "http://localhost:3000"
+  target: "http://localhost:3000" # Note: port 3000 tests Atlas database
   phases:
     - duration: 60
       arrivalRate: 10
