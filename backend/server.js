@@ -14,18 +14,23 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Database connection
-mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/ubw_blog")
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+// Database connection (only in non-test environment)
+if (process.env.NODE_ENV !== "test") {
+  mongoose
+    .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/ubw_blog")
+    .then(() => console.log("Connected to MongoDB"))
+    .catch((err) => console.error("MongoDB connection error:", err));
+}
 
 // Routes
 app.use("/api", homeRoute);
 app.use("/api/auth", userRoute);
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
+// Only start server if not in test environment
+if (process.env.NODE_ENV !== "test") {
+  app.listen(3000, () => {
+    console.log("Server is running on port 3000");
+  });
+}
 
 export default app;
